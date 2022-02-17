@@ -1,0 +1,43 @@
+Index: main.py
+===================================================================
+diff --git a/main.py b/main.py
+--- a/main.py	
++++ b/main.py	
+@@ -1,0 +1,22 @@
++from collections import Counter
++from fei.ppds import Thread
++
++class Shared:
++    def __init__(self, size):
++        self.counter = 0
++        self.end = size
++        self.elms = [0] * size
++
++def do_count(shared):
++    while shared.counter != shared.end:
++        shared.elms[shared.counter] += 1
++        shared.counter += 1
++
++shared = Shared(1000000)
++t1 = Thread(do_count, shared)
++t2 = Thread(do_count, shared)
++t1.join()
++t2.join()
++
++counter = Counter(shared.elms)
++print(counter.most_common())
+Index: .idea/inspectionProfiles/profiles_settings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"InspectionProjectProfileManager\">\r\n  <settings>\r\n    <option name=\"USE_PROJECT_PROFILE\" value=\"false\" />\r\n    <version value=\"1.0\" />\r\n  </settings>\r\n</component>
+===================================================================
+diff --git a/.idea/inspectionProfiles/profiles_settings.xml b/.idea/inspectionProfiles/profiles_settings.xml
+--- a/.idea/inspectionProfiles/profiles_settings.xml	
++++ b/.idea/inspectionProfiles/profiles_settings.xml	
+@@ -1,5 +1,6 @@
+ <component name="InspectionProjectProfileManager">
+   <settings>
++    <option name="PROJECT_PROFILE" value="Default" />
+     <option name="USE_PROJECT_PROFILE" value="false" />
+     <version value="1.0" />
+   </settings>
