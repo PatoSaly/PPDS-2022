@@ -1,19 +1,19 @@
 # PPDS-2022
-> Repozitár zadaní z predmetu [**Paralelné programovanie a distribuované systémy**](https://uim.fei.stuba.sk/predmet/i-ppds/)
+> Repository with tasks on subject [**Paralelné programovanie a distribuované systémy**](https://uim.fei.stuba.sk/predmet/i-ppds/)
 
 ---
 
-## Príprava prostredia
+## Preparation of environment
 
-Na zadaní pracujem s Pythonom vo verzii ```3.10.2```.
-Vytvoril som si virtuálne prostredie,
-do ktorého som inštaloval potrebné moduly.
+We are working on the assignment with Python version ```3.10.2```.
+I have created a virtual environment into which we installed
+the necessary modules.
 
 - fei.ppds
-- ...
+
 
 ---
 
-Výsledný projekt je tvorený je verziovaný a uložený na GitHube,
-pričom každá vetva (mimo master) obsahuje jedno zadanie z cvičenia. 
-Virtuálne prostredie je spoločné pre celý projekt, teda všetky vetvy.
+The resulting project is versioned and stored on GitHub,
+with each branch (outside the master) containing one assignment from the exercise.
+The virtual environment is shared by the entire project, i.e. all branches.
