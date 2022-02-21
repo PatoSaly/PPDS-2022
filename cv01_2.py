@@ -18,12 +18,12 @@ def do_count(shared):
             break
 
         shared.elms[shared.counter] += 1
-        sleep(randint(1, 10)/1_000_000)
+        sleep(randint(1, 10)/1_000)
         shared.counter += 1
 
         mutex.unlock()
 
-shared = Shared(1_000_000)
+shared = Shared(1_000)
 mutex = Mutex()
 
 t1 = Thread(do_count, shared)

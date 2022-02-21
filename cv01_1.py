@@ -4,13 +4,23 @@ from time import sleep
 from random import randint
 
 class Shared:
+    """
+    dOCSTRING
+    """
     def __init__(self, size):
+        """
+        dOCSTRING
+        """
         self.counter = 0
         self.end = size
         self.elms = [0] * size
 
 
 def do_count(shared):
+    """
+    dOCSTRING
+    """
+
     mutex.lock()
     while True:
         if shared.counter >= shared.end:
@@ -22,7 +32,7 @@ def do_count(shared):
 
     mutex.unlock()
 
-shared = Shared(1000)
+shared = Shared(1_000)
 mutex = Mutex()
 
 t1 = Thread(do_count, shared)
