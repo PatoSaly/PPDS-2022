@@ -3,6 +3,7 @@ from collections import Counter
 from time import sleep
 from random import randint
 
+
 class Shared:
     """
     Instance of this class is shared between multiple threads
@@ -41,14 +42,15 @@ def do_count(shared):
     #unlock after while loop is stopped by break
     mutex.unlock()
 
-shared = Shared(1000)
+
+shared_object = Shared(1000)
 mutex = Mutex()
 
-t1 = Thread(do_count, shared)
-t2 = Thread(do_count, shared)
+t1 = Thread(do_count, shared_object)
+t2 = Thread(do_count, shared_object)
 
 t1.join()
 t2.join()
 
-counter = Counter(shared.elms)
+counter = Counter(shared_object.elms)
 print(counter.most_common())
