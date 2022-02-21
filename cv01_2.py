@@ -28,13 +28,15 @@ def do_count(shared):
     """
     while True:
         mutex.lock()
-        #condition to end while loop when iterator (counter) is at the end of the array
+        """ Condition to end while loop when iterator (counter)
+        is at the end of the array """
         if shared.counter >= shared.end:
             mutex.unlock()
             break
 
         shared.elms[shared.counter] += 1
-        #intentional error that puts a thread to sleep for a random time to achieve program execution inconsistency
+        """ intentional error that puts a thread to sleep for a random time
+        to achieve program execution inconsistency """
         sleep(randint(1, 10)/1_000)
         shared.counter += 1
 

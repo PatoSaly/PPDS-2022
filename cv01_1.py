@@ -27,19 +27,21 @@ def do_count(shared):
     Function that increases each element by 1
     """
 
-    #lock whole while loop
+    # lock whole while loop
     mutex.lock()
     while True:
-        #condition to end while loop when iterator (counter) is at the end of the array
+        """Condition to end while loop when iterator (counter)
+        is at the end of the array"""
         if shared.counter >= shared.end:
             break
 
         shared.elms[shared.counter] += 1
-        #intentional error that puts a thread to sleep for a random time to achieve program execution inconsistency
+        """intentional error that puts a thread to sleep for a random time
+        to achieve program execution inconsistency"""
         sleep(randint(1, 10)/1000)
         shared.counter += 1
 
-    #unlock after while loop is stopped by break
+    # unlock after while loop is stopped by break
     mutex.unlock()
 
 
