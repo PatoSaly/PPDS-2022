@@ -1,5 +1,7 @@
 # PPDS-2022 - Assignment 1
 
+<br />
+
 ## Inroduction
 The basic problem of this assignment is that we need to perform 
 an **operation** that has **two steps** with **more than one thread**
@@ -47,6 +49,8 @@ do_count()
        #execution of function
        mutex.unlock()
 ```
+
+<br />
 
 ## Conclusion
 Due to the version of the Python programming language we were using,
