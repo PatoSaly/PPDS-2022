@@ -1,1 +1,2 @@
-# PPDS-2022 - Zadanie č. 1
+# PPDS-2022 - Assignment 1
+

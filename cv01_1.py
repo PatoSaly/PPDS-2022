@@ -5,11 +5,16 @@ from random import randint
 
 class Shared:
     """
-    dOCSTRING
+    Instance of this class is shared between multiple threads
     """
     def __init__(self, size):
         """
-        dOCSTRING
+        Constructor of class has one parameter -- size
+
+        Object of class has 3 elements:
+        counter -- index through array
+        end -- size of array => parameter of Constructor
+        elms -- array itself, each element initialized to 0
         """
         self.counter = 0
         self.end = size
@@ -18,21 +23,25 @@ class Shared:
 
 def do_count(shared):
     """
-    dOCSTRING
+    Function that increases each element by 1
     """
 
+    #lock whole while loop
     mutex.lock()
     while True:
+        #condition to end while loop when iterator (counter) is at the end of the array
         if shared.counter >= shared.end:
             break
 
         shared.elms[shared.counter] += 1
+        #intentional error that puts a thread to sleep for a random time to achieve program execution inconsistency
         sleep(randint(1, 10)/1000)
         shared.counter += 1
 
+    #unlock after while loop is stopped by break
     mutex.unlock()
 
-shared = Shared(1_000)
+shared = Shared(1000)
 mutex = Mutex()
 
 t1 = Thread(do_count, shared)
