@@ -1,6 +1,9 @@
+from fei.ppds import Thread, Mutex, Semaphore, print, Event
 from time import sleep
 from random import randint
-from fei.ppds import Thread, Mutex, Semaphore, print, Event
+
+"""Fibonacci numbers
+"""
 
 #TODO docstring, PEP8 
 
@@ -29,33 +32,31 @@ class SimpleBarrier:
     
     def clear(self):
         self.T.clear()
- 
 
-def rendezvous(thread_name):
-    sleep(randint(1,10)/10)
-    print('rendezvous: %s' % thread_name)
- 
- 
-def ko(thread_name):
-    sleep(randint(1,10)/10)
-    print('ko: %s' % thread_name)
- 
- 
-def barrier_example(barrier1, barrier2, thread_name):
-    while True:
-        rendezvous(thread_name)
-        barrier1.wait()
-        ko(thread_name)
-        barrier2.wait()
-        
- 
-b1 = SimpleBarrier(5)
-b2 = SimpleBarrier(5)
+def compute_fibonacci(barrier1,barrier2 ,i):
+    sleep(randint(1, 20)/10)
+    fib_seq[i+2] = fib_seq[i] + fib_seq[i+1]
+    
 
-threads = list()
-for i in range(5):
-    t = Thread(barrier_example, b1, b2, i)
-    threads.append(t)
- 
-for t in threads:
-    t.join()
+
+
+THREADS = 10
+
+fib_seq = [0] * (THREADS + 2)
+fib_seq[1] = 1
+
+barrier1 = SimpleBarrier(THREADS)
+barrier2 = SimpleBarrier(THREADS)
+
+threads = [Thread(compute_fibonacci, barrier1, barrier2, i) for i in range(THREADS)]
+
+for i in range(THREADS):
+    compute_fibonacci(barrier1, barrier2, i)
+
+print(fib_seq)
+
+
+[t.join() for t in threads]
+
+print(fib_seq)
+
