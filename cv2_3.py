@@ -1,13 +1,24 @@
+"""Fibonacci numbers
+"""
+
 from fei.ppds import Thread, Mutex, Semaphore, print, Event
 from time import sleep
 from random import randint
 
-"""Fibonacci numbers
-"""
-
-#TODO docstring, PEP8 
-
 class SimpleBarrier:
+    """Simple Barrier implementation
+    Parameters:
+        N - number of Threads
+        C - counter
+        M - Mutex lock
+        T - Semaphore lock
+          - Evetnt lock
+
+    Functions:
+        init - initialization of variables
+        wait() - waiting until all threads are on same instruction
+        clear() - help to wait function
+    """
     def __init__(self, N):
         self.N = N
         self.C = 0
