@@ -1,15 +1,13 @@
-from time import sleep
 from random import randint
-from fei.ppds import Thread, Mutex, Semaphore, print, Event
-
-#TODO docstring, PEP8 
-
+from time import sleep
+from fei.ppds import Thread, Semaphore, Mutex, print
+ 
+ 
 class SimpleBarrier:
     def __init__(self, N):
         self.N = N
         self.C = 0
         self.M = Mutex()
-        #self.T = Event()
         self.T = Semaphore(0)
  
     def wait(self):
@@ -17,45 +15,24 @@ class SimpleBarrier:
         self.C += 1
         if self.C == self.N:
             self.C = 0
-            #Different implementations for Semaphore and Event
-            if isinstance(self.T, Event):
-                self.T.signal()
-            else:
-                self.T.signal(self.N)
+            self.T.signal(self.N)
         self.M.unlock()
         self.T.wait()
-        if isinstance(self.T, Event):
-            self.clear()
-    
-    def clear(self):
-        self.T.clear()
  
-
-def rendezvous(thread_name):
+ 
+def barrier_example(barrier, thread_id):
     sleep(randint(1,10)/10)
-    print('rendezvous: %s' % thread_name)
+    print("vlakno %d pred barierou" % thread_id)
+    barrier.wait()
+    print("vlakno %d po bariere" % thread_id)
  
  
-def ko(thread_name):
-    sleep(randint(1,10)/10)
-    print('ko: %s' % thread_name)
- 
- 
-def barrier_example(barrier1, barrier2, thread_name):
-    while True:
-        rendezvous(thread_name)
-        barrier1.wait()
-        ko(thread_name)
-        barrier2.wait()
-        
- 
-b1 = SimpleBarrier(5)
-b2 = SimpleBarrier(5)
+sb = SimpleBarrier(5)
 
-threads = list()
+threads = []
 for i in range(5):
-    t = Thread(barrier_example, b1, b2, i)
+    t = Thread(barrier_example, sb, i)
     threads.append(t)
- 
+
 for t in threads:
     t.join()
