@@ -10,7 +10,8 @@ I have created a virtual environment into which we installed
 the necessary modules.
 
 - fei.ppds
-
+- plotly 
+- pandas
 
 ---
 
