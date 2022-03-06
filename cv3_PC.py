@@ -1,3 +1,6 @@
+"""Experiment, that shows how different parameters in Producer, Consumer system affect result - number of produced items
+"""
+
 from fei.ppds import Semaphore, Mutex, print, Thread
 from random import randint
 from time import sleep
@@ -60,6 +63,7 @@ def draw_output():
     )
 
     fig.show()
+
 
 """Measured values are Number of producers, number of comsumers, time of production
 """
