@@ -36,13 +36,15 @@ We saved data to `out.csv` for better visualisation. To get data from file we us
 library and to visualisation **plotly** library. We did not store count of Consumers, because it is
 all the time the same as number of Producers.
 
+<br/>
+
 When we use `describe()` function from pandas, you can see important information about data.
 
 <p align="center">
   <img src="img/dataDescribe.png" width=50% height=50% />
 </p>
 
-
+<br/>
 
 As main visualisation we used **Scatter graph**. Here you can see whole graph 
 and how all 3 variables collide together.
@@ -51,6 +53,7 @@ and how all 3 variables collide together.
   <img src="img/wholeGraph.png" width=50% height=50% />
 </p>
 
+<br/>
 
 In this example u can see dependability of producers count and result count of items produced.
 It is obvious that when we increase number of producers, number of items increases as well.
@@ -59,6 +62,7 @@ It is obvious that when we increase number of producers, number of items increas
   <img src="img/producers_avg.png" width=50% height=50% />
 </p>
 
+<br/>
 
 In this example u can see dependability of production time and result count of items produced.
 With smaller production time, producers can create more items. 
@@ -66,6 +70,8 @@ With smaller production time, producers can create more items.
 <p align="center">
   <img src="img/time_avg.png" width=50% height=50% />
 </p>
+
+<br/>
 
 ## Conclusion
 Results of experiment were same as predicted. With increased number of Producers and decreased 
