@@ -55,12 +55,11 @@ def draw_output():
         font=dict(
             family="sans-serif",
             size=14,
-            color="purple"
+            color="black"
         )
     )
 
     fig.show()
-
 
 """Measured values are Number of producers, number of comsumers, time of production
 """
@@ -96,7 +95,6 @@ for j in range(1, 100):
     avg = sum(out) / len(out)
     print(f"Test c.{j}, n_producers:{n_producers}, time_of_production: {time_of_production}, avg_count: {avg}")
     output.append([n_producers, time_of_production, avg])
-print(output)
 
 # write output to file
 header = ["n_producers", "time_of_production", "avg_count"]
