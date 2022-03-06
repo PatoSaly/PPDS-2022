@@ -43,6 +43,7 @@ When we use `describe()` function from pandas, you can see important information
 </p>
 
 
+
 As main visualisation we used **Scatter graph**. Here you can see whole graph 
 and how all 3 variables collide together.
 
@@ -50,12 +51,14 @@ and how all 3 variables collide together.
   <img src="img/wholeGraph.png" width=50% height=50% />
 </p>
 
+
 In this example u can see dependability of producers count and result count of items produced.
 It is obvious that when we increase number of producers, number of items increases as well.
 
 <p align="center">
   <img src="img/producers_avg.png" width=50% height=50% />
 </p>
+
 
 In this example u can see dependability of production time and result count of items produced.
 With smaller production time, producers can create more items. 

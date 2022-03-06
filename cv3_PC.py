@@ -1,4 +1,6 @@
-"""Experiment, that shows how different parameters in Producer, Consumer system affect result - number of produced items
+"""Experiment, that shows how different parameters in
+   Producer, Consumer system affect
+   result - number of produced items
 """
 
 from fei.ppds import Semaphore, Mutex, print, Thread
@@ -52,7 +54,10 @@ def draw_output():
 
     print(df.describe())
 
-    fig = px.scatter_3d(df, x='time_of_production', y='n_producers', z='avg_count')
+    fig = px.scatter_3d(df,
+                        x='time_of_production',
+                        y='n_producers',
+                        z='avg_count')
     fig.update_layout(
         title="Producer, Consumer scatter graph",
         font=dict(
@@ -65,7 +70,8 @@ def draw_output():
     fig.show()
 
 
-"""Measured values are Number of producers, number of comsumers, time of production
+"""Measured values are Number of producers,
+   number of comsumers, time of production
 """
 output = []
 count = 0
@@ -82,7 +88,8 @@ for j in range(1, 100):
         count = 0
         time1 = time.perf_counter()
         c = [Thread(consumer, s) for _ in range(n_consumers)]
-        p = [Thread(producer, s, time_of_production) for _ in range(n_producers)]
+        p = [Thread(producer, s, time_of_production)
+             for _ in range(n_producers)]
 
         sleep(5)
         s.finished = True
@@ -97,7 +104,8 @@ for j in range(1, 100):
         out.append(count / delta_time)
 
     avg = sum(out) / len(out)
-    print(f"Test c.{j}, n_producers:{n_producers}, time_of_production: {time_of_production}, avg_count: {avg}")
+    print(f"Test c.{j}, n_producers:{n_producers},"
+          f" time_of_production: {time_of_production}, avg_count: {avg}")
     output.append([n_producers, time_of_production, avg])
 
 # write output to file
