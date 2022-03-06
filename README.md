@@ -5,4 +5,4 @@
 ![Whole Graph](img/wholeGraph.png)
 
 
-<img src="img/wholeGraph.png" width=75% height=75% />
+<img src="img/wholeGraph.png" width=50% height=50% />
