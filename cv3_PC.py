@@ -1,12 +1,11 @@
-import numpy as np
 from fei.ppds import Semaphore, Mutex, print, Thread
 from random import randint
 from time import sleep
-from matplotlib import pyplot as plt
 import pandas as pd
-import plotly.graph_objects as go
+import plotly.express as px
 import csv
 import time
+
 
 class Shared:
     def __init__(self, n):
@@ -45,6 +44,24 @@ def consumer(shared):
         sleep(randint(1, 5) / 10)
 
 
+def draw_output():
+    df = pd.read_csv('out.cvs')
+
+    print(df.describe())
+
+    fig = px.scatter_3d(df, x='time_of_production', y='n_producers', z='avg_count')
+    fig.update_layout(
+        title="Producer, Consumer scatter graph",
+        font=dict(
+            family="sans-serif",
+            size=14,
+            color="purple"
+        )
+    )
+
+    fig.show()
+
+
 """Measured values are Number of producers, number of comsumers, time of production
 """
 output = []
@@ -81,36 +98,12 @@ for j in range(1, 100):
     output.append([n_producers, time_of_production, avg])
 print(output)
 
+# write output to file
 header = ["n_producers", "time_of_production", "avg_count"]
 with open('out.cvs', 'w', newline="") as f:
     writer = csv.writer(f)
     writer.writerow(header)
     for line in output:
         writer.writerow(line)
-# output = np.array(output)
-#
-# x = []
-# y = []
-# z = []
-#
-# for line in output:
-#     x.append(line[0])
-#     y.append(line[1])
-#     z.append(line[2])
-#
-# print(x)
-# print(y)
-# x = np.array(x)
-# y = np.array(y)
-# x, y = np.meshgrid(x, y)
-# z = np.array(z)
-# fig = plt.figure()
-# ax = plt.axes(projection='3d')
-#
-# ax.scatter(x, y, z, c='r')
-#
-# ax.set_xlabel('X Label')
-# ax.set_ylabel('Y Label')
-# ax.set_zlabel('Z Label')
-# plt.show()
-# #plt.savefig("mygraph.png")
+
+draw_output()
