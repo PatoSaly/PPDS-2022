@@ -10,9 +10,9 @@ from fei.ppds import Semaphore, Thread, print, Mutex
     M - size of pot (number of servings cooked)
     C - number od cooks
 """
-N = 5
-M = 8
-C = 10
+N = 3
+M = 2
+C = 3
 
 
 class SimpleBarrier:
