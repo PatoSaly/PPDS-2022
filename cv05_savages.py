@@ -5,13 +5,18 @@ from time import sleep
 from random import randint
 from fei.ppds import Semaphore, Thread, print, Mutex
 
+"""Global parameters
+    N - number of savages
+    M - size of pot (number of servings cooked)
+    C - number od cooks
+"""
 N = 5
 M = 8
 C = 10
 
 
 class SimpleBarrier:
-    """Simple Barrier implementation with special outputs for savages, cooks problem
+    """SimpleBarrier implementation with special outputs for savages, cooks problem
     Parameters:
         N - number of Threads
         C - counter
@@ -131,7 +136,6 @@ def cook(j, shared):
             print(f"cook {j}: {M} servings -> pot")
             shared.full_pot.signal()
             shared.cooks_count = 0
-
 
 
 def main():

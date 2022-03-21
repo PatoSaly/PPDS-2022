@@ -33,7 +33,7 @@ def make_cigarette(name):
 
 
 def smoke(name):
-    #print(f"smoker {name} smoke\n")
+    # print(f"smoker {name} smoke\n")
     sleep(randint(1, 10) / 100)
 
 
@@ -73,7 +73,7 @@ def smoker_paper(shared):
 def agent_1(shared):
     while True:
         sleep(randint(1, 10) / 100)
-        #shared.agentSem.wait()
+        # shared.agentSem.wait()
         print("agent: tobacco, paper")
         shared.tobacco.signal()
         shared.paper.signal()
@@ -82,7 +82,7 @@ def agent_1(shared):
 def agent_2(shared):
     while True:
         sleep(randint(1, 10) / 100)
-        #shared.agentSem.wait()
+        # shared.agentSem.wait()
         print("agent: match, paper")
         shared.match.signal()
         shared.paper.signal()
@@ -91,7 +91,7 @@ def agent_2(shared):
 def agent_3(shared):
     while True:
         sleep(randint(1, 10) / 100)
-        #shared.agentSem.wait()
+        # shared.agentSem.wait()
         print("agent: tobacco, match")
         shared.tobacco.signal()
         shared.match.signal()
@@ -154,9 +154,15 @@ def pusher_tobacco(shared):
 def model():
     shared = Shared()
 
-    smokers = [Thread(smoker_paper, shared), Thread(smoker_match, shared), Thread(smoker_tobacco, shared)]
-    pushers = [Thread(pusher_paper, shared), Thread(pusher_match, shared), Thread(pusher_tobacco, shared)]
-    agents = [Thread(agent_1, shared), Thread(agent_2, shared), Thread(agent_3, shared)]
+    smokers = [Thread(smoker_paper, shared),
+               Thread(smoker_match, shared),
+               Thread(smoker_tobacco, shared)]
+    pushers = [Thread(pusher_paper, shared),
+               Thread(pusher_match, shared),
+               Thread(pusher_tobacco, shared)]
+    agents = [Thread(agent_1, shared),
+              Thread(agent_2, shared),
+              Thread(agent_3, shared)]
 
     for t in smokers+agents+pushers:
         t.join()
