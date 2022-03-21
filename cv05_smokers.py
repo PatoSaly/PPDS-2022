@@ -17,7 +17,7 @@ class Shared:
         self.pusherTobacco = Semaphore(0)
         self.pusherPaper = Semaphore(0)
 
-        self.mutex = Mutex()
+        self.mutexS = Mutex()
 
         self.agentSem = Semaphore(1)
 
@@ -90,7 +90,7 @@ def pusher_match(shared):
     while True:
         shared.match.wait()
 
-        shared.mutex.lock()
+        shared.mutexS.lock()
 
         if shared.isTobacco:
             shared.isTobacco -= 1
@@ -101,14 +101,14 @@ def pusher_match(shared):
         else:
             shared.isMatch += 1
         print(shared.isMatch)
-        shared.mutex.unlock()
+        shared.mutexS.unlock()
 
 
 def pusher_paper(shared):
     while True:
         shared.paper.wait()
 
-        shared.mutex.lock()
+        shared.mutexS.lock()
 
         if shared.isTobacco:
             shared.isTobacco -= 1
@@ -119,14 +119,14 @@ def pusher_paper(shared):
         else:
             shared.isPaper += 1
 
-        shared.mutex.unlock()
+        shared.mutexS.unlock()
 
 
 def pusher_tobacco(shared):
     while True:
         shared.tobacco.wait()
 
-        shared.mutex.lock()
+        shared.mutexS.lock()
 
         if shared.isPaper:
             shared.isPaper -= 1
@@ -137,7 +137,7 @@ def pusher_tobacco(shared):
         else:
             shared.isTobacco += 1
 
-        shared.mutex.unlock()
+        shared.mutexS.unlock()
 
 
 def model():

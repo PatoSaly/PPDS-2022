@@ -3,11 +3,12 @@ from random import randint
 from fei.ppds import Semaphore, Thread, print, Mutex
 
 N = 3
-M = 20
+M = 2
+C = 3
 
 
 class SimpleBarrier:
-    """Simple Barrier implementation
+    """Simple Barrier implementation with special outputs for savages, cooks problem
     Parameters:
         N - number of Threads
         C - counter
@@ -41,12 +42,18 @@ class SimpleBarrier:
 class Shared:
     def __init__(self, m):
         self.servings = m
-        self.mutex = Mutex()
+        self.mutexS = Mutex()
+        self.mutexC = Mutex()
         self.empty_pot = Semaphore(0)
         self.full_pot = Semaphore(0)
 
-        self.b1 = SimpleBarrier(N)
-        self.b2 = SimpleBarrier(N)
+        self.cooks_count = 0
+
+        self.s1 = SimpleBarrier(N)
+        self.s2 = SimpleBarrier(N)
+
+        self.c1 = SimpleBarrier(C)
+        self.c2 = SimpleBarrier(C)
 
 
 def eat(i):
@@ -58,39 +65,56 @@ def savage(i, shared):
     # random reorder savages
     sleep(randint(1, 100)/100)
     while True:
-        shared.b1.wait()
-        shared.b2.wait(each=f"savage {i}: before dinner",
+        shared.s1.wait()
+        shared.s2.wait(each=f"savage {i}: before dinner",
                        last=f"savage {i}: all savages are there")
-        shared.mutex.lock()
+        shared.mutexS.lock()
         if shared.servings == 0:
             print(f"savage {i}: empty pot")
-            shared.empty_pot.signal()
+            shared.empty_pot.signal(C)
             shared.full_pot.wait()
         print(f"savage {i}: take from pot")
         shared.servings -= 1
-        shared.mutex.unlock()
+        shared.mutexS.unlock()
         eat(i)
 
 
-def cook(shared):
+def cook(j, shared):
     while True:
         shared.empty_pot.wait()
-        print("cook: cooking")
+
+
+        shared.c1.wait()
+        shared.c2.wait(each=f"cook {j} waiting",
+                       last=f"all cooks going to cook")
+
+
+        shared.mutexC.lock()
+        shared.cooks_count += 1
+
+        print(f"cook {j}: cooking")
         sleep(randint(50, 200)/100)
-        print(f"cook: {M} servings -> pot")
-        shared.servings += M
-        shared.full_pot.signal()
+
+        if shared.cooks_count == C:
+            shared.servings += M
+            print(f"cook {j}: {M} servings -> pot")
+            shared.full_pot.signal()
+            shared.cooks_count = 0
+
+        shared.mutexC.unlock()
 
 
 def main():
     shared = Shared(0)
     savages = []
+    cooks = []
 
     for i in range(N):
         savages.append(Thread(savage, i, shared))
-    savages.append(Thread(cook, shared))
+    for j in range(C):
+        cooks.append(Thread(cook, j, shared))
 
-    for t in savages:
+    for t in savages + cooks:
         t.join()
 
 
