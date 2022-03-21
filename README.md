@@ -38,10 +38,10 @@ class Shared:
     mutexS := Mutex()
     mutexC := Mutex()
     empty_pot := Semaphore(0)
-    full_pot = Semaphore(0)
-    cooks_count = 0
-    b1 = SimpleBarrier(N)
-    b2 = SimpleBarrier(C)
+    full_pot := Semaphore(0)
+    cooks_count := 0
+    b1 := SimpleBarrier(N)
+    b2 := SimpleBarrier(C)
 
 
 def savage(i, shared):
