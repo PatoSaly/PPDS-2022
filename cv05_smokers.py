@@ -1,9 +1,14 @@
+"""Solution to the synchronisation problem of smokers
+"""
+
 from time import sleep
 from random import randint
 from fei.ppds import Semaphore, Thread, print, Mutex
 
 
 class Shared:
+    """Shared object
+    """
     def __init__(self):
         self.tobacco = Semaphore(0)
         self.paper = Semaphore(0)
@@ -33,6 +38,8 @@ def smoke(name):
 
 
 def smoker_match(shared):
+    """Smoker with infinite amount of matches
+    """
     while True:
         sleep(randint(1, 10) / 100)
         shared.pusherMatch.wait()
@@ -42,6 +49,8 @@ def smoker_match(shared):
 
 
 def smoker_tobacco(shared):
+    """Smoker with infinite amount of tobacco
+    """
     while True:
         sleep(randint(1, 10) / 100)
         shared.pusherTobacco.wait()
@@ -51,6 +60,8 @@ def smoker_tobacco(shared):
 
 
 def smoker_paper(shared):
+    """Smoker with infinite amount of paper
+    """
     while True:
         sleep(randint(1, 10) / 100)
         shared.pusherPaper.wait()
@@ -144,13 +155,12 @@ def model():
     shared = Shared()
 
     smokers = [Thread(smoker_paper, shared), Thread(smoker_match, shared), Thread(smoker_tobacco, shared)]
-
     pushers = [Thread(pusher_paper, shared), Thread(pusher_match, shared), Thread(pusher_tobacco, shared)]
-
     agents = [Thread(agent_1, shared), Thread(agent_2, shared), Thread(agent_3, shared)]
 
     for t in smokers+agents+pushers:
         t.join()
+
 
 if __name__ == "__main__":
     model()
