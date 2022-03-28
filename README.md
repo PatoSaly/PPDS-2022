@@ -1,6 +1,5 @@
 # Assignment 6
 
-<br>
 
 ### In assignment 6 we implemented a barbers and multiple customers problem without strict FIFO queue
 
