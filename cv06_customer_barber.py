@@ -123,6 +123,11 @@ def main():
 
 
 if __name__ == "__main__":
+    """Gobal parameters
+        C - count of customers
+        B - count of barbers
+        W - spaces in waiting room
+    """
     C = 14
     B = 1
     W = 2
