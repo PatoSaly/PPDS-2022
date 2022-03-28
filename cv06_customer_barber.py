@@ -5,15 +5,11 @@ from fei.ppds import Thread, Mutex, Semaphore, print
 from random import randint
 from time import sleep
 
-C = 14
-B = 2
-
 
 class Shared:
     def __init__(self):
         self.customers_count = 0
         self.mutexC = Mutex()
-        self.mutexB = Mutex()
 
         self.customer = Semaphore(0)
         self.barber = Semaphore(0)
@@ -29,18 +25,18 @@ def balk(i):
 
 def get_cut_hair(i):
     print(f'Customer {i} getting his hair cut.')
-    sleep(randint(1, 2)/100)
+    sleep(2/100)
 
 
 def grow_hair(i):
-    sleep(randint(4, 7)/10)
+    sleep(randint(5, 7)/10)
     print(f'Hair of customer {i} has grown.')
 
 
 def customer(i, shared):
     while True:
         shared.mutexC.lock()
-        if shared.customers_count == C - 1:
+        if shared.customers_count == B:
             shared.mutexC.unlock()
             balk(i)
             continue
@@ -64,7 +60,7 @@ def customer(i, shared):
 
 def cut_hair(i):
     print(f'Barber {i} is cutting hair.')
-    sleep(randint(1, 2)/100)
+    sleep(2/100)
 
 
 def barber(i, shared):
@@ -94,4 +90,6 @@ def main():
 
 
 if __name__ == "__main__":
+    C = 14
+    B = 1
     main()
