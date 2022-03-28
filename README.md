@@ -1,5 +1,10 @@
 # Assignment 6
+
+<br>
+
 ### In assignment 6 we implemented a barbers and multiple customers problem without strict FIFO queue
+
+<br>
 
 ## Basic problem description
 - 2 rooms in barbershop
@@ -12,14 +17,22 @@
 - if there is no customer in barber room, one from waiting room goes in there
 - **The problem consists of coordinating the customer and the barber.**
 
+<br>
+
 >We aim for concurrent execution of cutting hair function.
 
+<br>
+
 For this purpose, we used synchronization functions to jointly start and end the haircut by both the barber and the customer.
+
+<br>
 
 ## Barber
 The barber waits for the customer to arrive (`customer.signal`) and then tells to customer that he is ready (`barber.signal`). He starts to cut the hair and when he is finished he waits for the customer's signal that he is satisfied (`customerDone.signal`). The last thing is that the barber signals to the customer that he has completed all the operations (`barberDone.signal`).
 
 Barber use help function `cut_hair` that simulates barber cutting customer's hair.
+
+<br>
 
 ## Customer
 The customer first finds out if there is enough space in the barber shop and if yes he enters the barber shop, if not he leaves and comes back later (`balk`). 
