@@ -12,6 +12,7 @@ the necessary modules.
 - fei.ppds
 - plotly 
 - pandas
+- asyncio
 
 ---
 
