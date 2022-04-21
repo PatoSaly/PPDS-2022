@@ -21,7 +21,9 @@ async def task(iD, delay):
 
 
 async def main():
-    tasks = [task('Task1', randint(2, 5)), task('Task2', randint(2, 5)), task('Task3', randint(2, 5))]
+    tasks = [task('Task1', randint(2, 5)),
+             task('Task2', randint(2, 5)),
+             task('Task3', randint(2, 5))]
     await asyncio.gather(*tasks)
 
 
