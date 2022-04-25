@@ -9,7 +9,6 @@ Resources:
 
 import time
 from numba import cuda
-import math
 import numpy as np
 
 
