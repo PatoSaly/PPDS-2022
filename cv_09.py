@@ -29,8 +29,8 @@ def multiply(mat1, mat2, out):
 
 
 def main():
-    arr1 = np.arange(35).reshape(5, 7)
-    arr2 = np.arange(63).reshape(7, 9)
+    arr1 = np.arange(6).reshape(2, 3)
+    arr2 = np.arange(12).reshape(3, 4)
     # output matrix rize
     arr_out = np.zeros((arr1.shape[0], arr2.shape[1]))
 
